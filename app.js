@@ -22,6 +22,4 @@ var router = require('./app_server/router/projeRouter');
 
 app.use('/', router);
 
-
-
 app.listen(8000);

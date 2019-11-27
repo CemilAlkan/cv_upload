@@ -14,9 +14,9 @@ module.exports.indexPost = function (req, res) {
     var message =  "The file type can be word or pdf. Also make sure the file size is less than 100 mb.";
     var alert = "danger"
     if(functions.fileTypecontrol(req)){
-        functions.saveFormFunction(req)
+        functions.saveForm(req)
         alert = "success"
-        message = "success";
+        message = "Cv has been successfully registered.";
     }
     
     

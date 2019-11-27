@@ -3,40 +3,6 @@ var util = require('util');
 var fs = require('fs');
 var mime = require('mime');
 
-
-
-
-
-function saveFormFunction(req) {
-    var folderName = req.body.email.replace('@', '-')
-    var path = "./Cv/" + folderName
-    //create Folder
-    mkdirp('./Cv/' + folderName, function (err) {
-        if (err) {
-            console.log('Could not create file.');
-
-            return true;
-        }
-    });
-
-    var strJSON = util.format('{ "firstName":"%s", "lastName":"%s","email":"%s","phoneNumber":"%s" }', req.body.fName, req.body.lastName, req.body.email, req.body.phone);
-    createJSON(path, strJSON);
-
-    var file = req.files.filename,
-        filename = file.name;
-
-    // save cv file
-    if (filename) {
-        file.mv(path + "/" + filename, function (err) {
-            if (err) {
-                console.log("An error occurred while saving the file.");
-                return true;
-            }
-        })
-    }
-
-}
-
 // converting data from the form to JSON format
 function createJSON(path, strJSON) {
 
@@ -50,7 +16,20 @@ function createJSON(path, strJSON) {
         }
     });
 }
+// save cv file
+function saveCvFile(req,path) {
+    var file = req.files.filename,
+        filename = file.name;
+    if (filename) {
+        file.mv(path + "/" + filename, function (err) {
+            if (err) {
+                console.log("An error occurred while saving the file.");
+                return true;
+            }
+        })
+    }
 
+}
 
 
 
@@ -72,8 +51,23 @@ module.exports.fileTypecontrol = function (req) {
 }
 
 // Save Form Function
-module.exports.saveFormFunction = function (req) {
+module.exports.saveForm = function (req) {
 
-    createfolder(req);
+    var folderName = req.body.email.replace('@', '-')
+    var path = "./Cv/" + folderName
+    //create Folder
+    mkdirp('./Cv/' + folderName, function (err) {
+        if (err) {
+            console.log('Could not create file.');
+
+            return true;
+        }
+    });
+
+    var strJSON = util.format('{ "firstName":"%s", "lastName":"%s","email":"%s","phoneNumber":"%s" }', req.body.fName, req.body.lastName, req.body.email, req.body.phone);
+    createJSON(path, strJSON);
+    
+    // save cv file
+    saveCvFile(req,path);
 
 };
