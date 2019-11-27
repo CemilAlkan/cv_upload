@@ -20,6 +20,14 @@
 
 
     </nav>
+    
+    <% if(message != ""){%>
+        <div class="alert alert-<%=alert%>" role="alert">
+                <p><%= message %> </p>
+        </div>
+        
+     <%}%>
+    
     <%- body%>
 
 
