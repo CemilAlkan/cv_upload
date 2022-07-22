@@ -12,7 +12,7 @@
         "express": "^4.17.1",
         "express-ejs-layouts": "^2.5.0",
         "express-fileupload": "^1.1.9",
-        "file-type": "^12.4.0",
+        "file-type": "^16.5.4",
         "jquery": "^3.5.0",
         "js-alert": "^1.0.4",
         "mkdirp": "^0.5.1"
